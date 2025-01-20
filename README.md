@@ -24,3 +24,36 @@ StaffSync is a role-based workforce management system designed to streamline com
 - Apply for leave and approve leave requests (if a manager).
 - Download and approve payslips (if a manager).
 - Fill in and submit worklogs accurately.
+
+---
+
+## Workflow
+
+Here’s an overview of the workflow within **StaffSync**:
+
+![StaffSync Workflow](https://raw.githubusercontent.com/NishantTheProgrammer/StaffSync/refs/heads/main/docs/flow.png)
+
+---
+
+## Entity Relationship Diagram (ERD)
+
+The ERD illustrates the relationships between different entities in the system:
+
+![StaffSync ERD](https://raw.githubusercontent.com/NishantTheProgrammer/StaffSync/refs/heads/main/docs/erd.png)
+
+---
+
+## Prerequisites
+
+- Java 23 or higher
+- Maven 3.6+
+- PostgreSQL database
+
+---
+
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/NishantTheProgrammer/StaffSync
+   cd StaffSync
