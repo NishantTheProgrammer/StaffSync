@@ -1,9 +1,12 @@
 package com.programmer.StaffSync.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +24,15 @@ public class CompanyController {
     @GetMapping("")
     public List<Company> getCompanyList() {
         return this.companyService.getCompanyList();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyList(@PathVariable int id) {
+        Optional<Company> company = this.companyService.getCompany(id);
+        if(company.isPresent()) {
+            return ResponseEntity.ok(company.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

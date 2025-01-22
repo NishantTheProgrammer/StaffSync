@@ -1,6 +1,7 @@
 package com.programmer.StaffSync.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class CompanyService {
 
     public List<Company> getCompanyList() {
         return this.companyRepository.findAll();
+    }
+
+    public Optional<Company> getCompany(int id) {
+        return this.companyRepository.findById(id);
     }
 
 }
