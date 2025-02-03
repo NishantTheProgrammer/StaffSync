@@ -37,10 +37,9 @@ public class ProjectController {
         }
     }
     
-
     @PostMapping("")
-    public ResponseEntity<String> save(@RequestBody Project project) {
-        this.projectService.save(project);
-        return ResponseEntity.ok().body("Project saved");
+    public ResponseEntity<Project> save(@RequestBody Project project) {
+        Project savedProject = this.projectService.save(project);
+        return ResponseEntity.status(201).body(savedProject); // Return saved project with 201 Created
     }
 }

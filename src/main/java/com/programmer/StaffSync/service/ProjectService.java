@@ -26,8 +26,8 @@ public class ProjectService {
         return this.projectRepository.findAll();
     }
 
-    public void save(Project notification) {
-        this.projectRepository.save(notification);
+    public Project save(Project notification) {
+        return this.projectRepository.save(notification);
     }
 
 

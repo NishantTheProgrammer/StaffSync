@@ -8,6 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 @Entity
@@ -23,9 +26,16 @@ public class Project {
     @ManyToOne
     private Company company;
 
-
-    @JsonProperty("companyId") // Serialize only the companyId
+    @JsonProperty("companyId")
     public Integer getCompanyId() {
         return company != null ? company.getId() : null;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        if (companyId != null) {
+            Company company = new Company();
+            company.setId(companyId);  // Set company object based on companyId
+            this.company = company;    // Set the Company object
+        }
     }
 }
