@@ -2,6 +2,8 @@ package com.programmer.StaffSync.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.programmer.StaffSync.enums.Role;
 
 import jakarta.persistence.Entity;
@@ -35,8 +37,40 @@ public class Employee {
     private Employee manager;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
+    @JsonProperty("userId")
+    public Integer getUserId() {
+        return user != null ? user.getId() : null;
+    }
+
+    public void setUserId(Integer userId) {
+        if (userId != null) {
+            User user = new User();
+            user.setId(userId);  // Set user object based on userId
+            this.user = user;    // Set the user object
+        }
+    }
+
+
+
+
+
     @ManyToOne
+    @JsonIgnore
     private Company company;
+
+    @JsonProperty("companyId")
+    public Integer getCompanyId() {
+        return company != null ? company.getId() : null;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        if (companyId != null) {
+            Company company = new Company();
+            company.setId(companyId);  // Set company object based on companyId
+            this.company = company;    // Set the Company object
+        }
+    }
 }
