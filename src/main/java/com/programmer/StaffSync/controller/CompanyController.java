@@ -19,12 +19,12 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping("")
-    public List<Company> getCompanyList() {
+    public List<Company> getList() {
         return this.companyService.getCompanyList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Company> getCompanyList(@PathVariable int id) {
+    public ResponseEntity<Company> getCompany(@PathVariable int id) {
         Optional<Company> company = this.companyService.getCompany(id);
         if(company.isPresent()) {
             return ResponseEntity.ok(company.get());

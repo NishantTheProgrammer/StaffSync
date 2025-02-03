@@ -1,7 +1,6 @@
 package com.programmer.StaffSync.entity;
 
-import java.time.LocalDate;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -13,20 +12,20 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Notification {
-    
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate date;
-    private LocalDate readDate;
-    private String content;
+
+    private String name;
+    private String ownerName;
 
     @ManyToOne
-    private User user;
+    private Company company;
 
-    @JsonProperty("userId") // Serialize only the userId
-    public Integer getUserId() {
-        return user != null ? user.getId() : null;
+
+    @JsonProperty("companyId") // Serialize only the companyId
+    public Integer getCompanyId() {
+        return company != null ? company.getId() : null;
     }
 }
