@@ -36,6 +36,20 @@ public class Employee {
     @ManyToOne
     private Employee manager;
 
+
+    @JsonProperty("managerId")
+    public Integer getManagerId() {
+        return manager != null ? manager.getId() : null;
+    }
+
+    public void setManagerId(Integer managerId) {
+        if (managerId != null) {
+            Employee manager = new Employee();
+            manager.setId(managerId);  // Set user object based on userId
+            this.manager = manager;    // Set the user object
+        }
+    }
+
     @ManyToOne
     @JsonIgnore
     private User user;
