@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.programmer.StaffSync.enums.Role;
+import com.programmer.StaffSync.enums.EmployeeRole;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,7 +31,7 @@ public class Employee {
     private LocalDate dateOfJoining;
     
     @Enumerated(EnumType.STRING)  // To store the role as a string in the database
-    private Role role; 
+    private EmployeeRole role; 
 
     @ManyToOne
     private Employee manager;

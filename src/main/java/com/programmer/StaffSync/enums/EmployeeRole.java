@@ -1,6 +1,6 @@
 package com.programmer.StaffSync.enums;
 
-public enum Role {
+public enum EmployeeRole {
     MANAGER,
     DEVELOPER,
     DESIGNER,
