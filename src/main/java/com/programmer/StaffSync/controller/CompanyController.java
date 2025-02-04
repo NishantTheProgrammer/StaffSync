@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +22,8 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping("")
-    public List<Company> getList() {
-        return this.companyService.getCompanyList();
+    public Page<Company> getList(@PageableDefault(size = 10) Pageable pageable) {
+        return this.companyService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
