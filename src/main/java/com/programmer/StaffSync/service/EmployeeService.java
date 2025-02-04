@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.programmer.StaffSync.entity.Employee;
@@ -15,8 +17,8 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public List<Employee> getAll() {
-        return this.employeeRepository.findAll();
+    public Page<Employee> getAll(Pageable pageable) {
+        return this.employeeRepository.findAll(pageable);
     }
 
     public Optional<Employee> getByPk(Integer id) {

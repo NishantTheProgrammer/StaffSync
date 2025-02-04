@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.programmer.StaffSync.entity.Notification;
@@ -19,8 +21,8 @@ public class NotificationService {
         this.notificationRepository.save(notification);
     }
 
-    public List<Notification> getAll() {
-        return this.notificationRepository.findAll();
+    public Page<Notification> getAll(Pageable pageable) {
+        return this.notificationRepository.findAll(pageable);
     }
 
     public void save(Notification notification) {

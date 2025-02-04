@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.programmer.StaffSync.entity.Project;
@@ -22,8 +24,8 @@ public class ProjectService {
         this.projectRepository.save(notification);
     }
 
-    public List<Project> getAll() {
-        return this.projectRepository.findAll();
+    public Page<Project> getAll(Pageable pageable) {
+        return this.projectRepository.findAll(pageable);
     }
 
     public Project save(Project notification) {
