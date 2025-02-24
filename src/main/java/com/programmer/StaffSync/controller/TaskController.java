@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +27,13 @@ public class TaskController {
     private TaskService taskService;
 
 
+    @PreAuthorize("hasRole('EMPLOYEE') || hasRole('COMPANY')")
     @GetMapping("")
     public Page<Task> getAll(@PageableDefault(size = 10) Pageable pageable) {
         return this.taskService.getAll(pageable);
     }
 
+    @PreAuthorize("hasRole('EMPLOYEE') || hasRole('COMPANY')")
     @GetMapping("/{id}")
     public ResponseEntity<Task> findByPk(@PathVariable Integer id) {
         Optional<Task> task = this.taskService.findByPk(id);
@@ -42,10 +45,9 @@ public class TaskController {
         }
     }
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("")
     public Task save(@RequestBody Task task) {
         return this.taskService.save(task);
     }
-
-    
 }
