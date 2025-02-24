@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.programmer.StaffSync.dto.LoginUserDto;
 import com.programmer.StaffSync.dto.RegisterUserDto;
 import com.programmer.StaffSync.entity.User;
+import com.programmer.StaffSync.enums.UserRole;
 import com.programmer.StaffSync.repository.UserRepository;
 
 @Service
@@ -33,6 +34,7 @@ public class AuthenticationService {
         User user = new User();
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setRole(UserRole.EMPLOYEE); // Default role is EMPLOYEE
         return userRepository.save(user);
     }
 
