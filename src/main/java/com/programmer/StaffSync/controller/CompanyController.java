@@ -11,7 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.programmer.StaffSync.dto.CompanyDto;
+import com.programmer.StaffSync.dto.RegisterUserDto;
 import com.programmer.StaffSync.entity.Company;
+import com.programmer.StaffSync.entity.Project;
+import com.programmer.StaffSync.entity.Salary;
+import com.programmer.StaffSync.entity.User;
+import com.programmer.StaffSync.enums.UserRole;
+import com.programmer.StaffSync.service.AuthenticationService;
 import com.programmer.StaffSync.service.CompanyService;
 
 
@@ -23,6 +30,9 @@ public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @GetMapping("")
     public Page<Company> getList(@PageableDefault(size = 10) Pageable pageable) {
@@ -37,5 +47,20 @@ public class CompanyController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("")
+    public ResponseEntity<Company> save(@RequestBody CompanyDto companyDto) {
+        Company company;
+        if(companyDto.getId() != null && companyDto.getId() > 0) {
+            company = this.companyService.getCompany(companyDto.getId()).get();
+        } else {
+            company = new Company(companyDto);
+            User user = this.authenticationService.signup(new RegisterUserDto(companyDto), UserRole.COMPANY);
+            company.setUser(user);
+        }
+        Company savedCompany = this.companyService.save(company);
+        return ResponseEntity.status(201).body(savedCompany); // Return saved proj
     }
 }

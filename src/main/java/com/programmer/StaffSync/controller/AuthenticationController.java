@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.programmer.StaffSync.dto.LoginUserDto;
 import com.programmer.StaffSync.dto.RegisterUserDto;
 import com.programmer.StaffSync.entity.User;
+import com.programmer.StaffSync.enums.UserRole;
 import com.programmer.StaffSync.responses.LoginResponse;
 import com.programmer.StaffSync.service.AuthenticationService;
 import com.programmer.StaffSync.service.JwtService;
@@ -25,7 +26,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-        User registeredUser = authenticationService.signup(registerUserDto);
+        User registeredUser = authenticationService.signup(registerUserDto, UserRole.EMPLOYEE);
 
         return ResponseEntity.ok(registeredUser);
     }

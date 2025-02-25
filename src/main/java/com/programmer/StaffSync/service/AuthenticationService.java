@@ -34,11 +34,11 @@ public class AuthenticationService {
         this.mailService = mailService;
     }
 
-    public User signup(RegisterUserDto input) {
+    public User signup(RegisterUserDto input, UserRole userRole) {
         User user = new User();
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
-        user.setRole(UserRole.EMPLOYEE); // Default role is EMPLOYEE
+        user.setRole(userRole); // Default role is EMPLOYEE
         sendResetPasswordEmail(user);
         return userRepository.save(user);
     }
