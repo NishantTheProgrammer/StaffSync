@@ -1,5 +1,6 @@
 package com.programmer.StaffSync.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,17 +22,20 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final MailService mailService;
+    private final JwtService jwtService;
 
     public AuthenticationService(
         UserRepository userRepository,
         AuthenticationManager authenticationManager,
         PasswordEncoder passwordEncoder,
-        MailService mailService
+        MailService mailService,
+        JwtService jwtService
     ) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
+        this.jwtService = jwtService;
     }
 
     public User signup(RegisterUserDto input, UserRole userRole) {
@@ -44,8 +48,10 @@ public class AuthenticationService {
     }
 
     public void sendResetPasswordEmail(User user) {
+        String jwtToken = jwtService.generateToken(new HashMap<>(), user, 60_000 * 5); // 5 min valid token
         String[] emails = { user.getEmail() };
-        Map<String, Object> variables = Map.of("link", "https://google.com");
+        System.out.println(jwtToken);
+        Map<String, Object> variables = Map.of("link", "https://google.com?token=" + jwtToken);
         try {
             this.mailService.sendTemplateEmail(emails, "Reset password", "reset-password", variables);
         } catch (MessagingException e) {
